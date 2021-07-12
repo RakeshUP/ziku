@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Mulish', sans-serif;
+  @apply bg-surface;
+  @apply text-white;
+}
+
+.gradient-text {
+  background: #1FA2FF;
+  background: -webkit-linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF);
+  background: linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-button:hover {
+  background: #1FA2FF;
+  background: -webkit-linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF);
+  background: linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF);
+}
+
+.gradient-element {
+  color: black;
+  background: #1FA2FF;
+  background: -webkit-linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF);
+  background: linear-gradient(to right, #A6FFCB, #12D8FA, #1FA2FF);
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  @apply w-full;
+  @apply h-1;
+  @apply bg-gray-700;
+  @apply outline-none;
+  @apply rounded-lg;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  @apply w-4;
+  @apply h-8;
+  @apply bg-cyan;
+  @apply cursor-pointer;
+  @apply rounded-lg;
+}
+
+.slider::-moz-range-thumb {
+  @apply w-1;
+  @apply h-2;
+  @apply bg-cyan;
+  @apply cursor-pointer;
+  @apply rounded-lg;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
