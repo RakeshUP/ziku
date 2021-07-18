@@ -11,15 +11,7 @@ const Footer = () => (
       </a>
       <div className="text-xs space-x-5 lg:space-x-8">
         <a
-          href="/"
-          target="_blank"
-          className="uppercase hover:text-cyan"
-          rel="noreferrer"
-        >
-          Discord
-        </a>
-        <a
-          href="/"
+          href="https://twitter.com/zikufinance"
           target="_blank"
           className="uppercase hover:text-cyan"
           rel="noreferrer"
@@ -27,7 +19,7 @@ const Footer = () => (
           Twitter
         </a>
         <a
-          href="https://github.com/wisgloo"
+          href="https://github.com/wisgloo/ziku"
           target="_blank"
           className="uppercase hover:text-cyan"
           rel="noreferrer"

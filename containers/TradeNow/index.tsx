@@ -6,6 +6,8 @@ import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import { Steps, useTradeState } from "../../context/TradeNow";
 import Stepper from "./Stepper";
+import { COINS } from '../../hooks/useCoinPrice';
+import HorizontalStepper from './HorizontalStepper';
 
 type TradeNowProps = {
   tradeRef: React.MutableRefObject<HTMLDivElement>;
@@ -33,17 +35,18 @@ const TradeNow: React.FC<TradeNowProps> = ({ tradeRef, parsedOptions }) => {
       <h1 className="text-5xl font-extrabold text-center gradient-text mb-12">
         Trade now.
       </h1>
-      <h2 className="max-w-screen-sm mx-auto text-xl font-medium text-center text-gray-300 mb-8">
+      <h2 className="w-10/12 max-w-screen-sm mx-auto text-lg lg:text-xl font-medium text-center text-gray-300 mb-8">
         {questionText()}
       </h2>
-      <div className="max-w-screen-sm mx-auto relative" style={{ minHeight: '27rem' }}>
+      <HorizontalStepper />
+      <div className="max-w-screen-sm mx-auto relative lg:h-1" style={{ minHeight: '27rem' }}>
         <Stepper />
         <AnimatePresence>
           {step === Steps.SELECT_ASSET && (
             <motion.div
               initial={{ y: '7%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="w-full flex justify-center h-full"
+              className="w-full lg:flex justify-center min-h-full"
             >
               <StepOne />
             </motion.div>
@@ -54,7 +57,7 @@ const TradeNow: React.FC<TradeNowProps> = ({ tradeRef, parsedOptions }) => {
             <motion.div
               initial={{ y: '7%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="w-full flex justify-center h-full absolute"
+              className="w-full lg:flex justify-center min-h-full"
             >
               <StepTwo />
             </motion.div>
@@ -65,9 +68,9 @@ const TradeNow: React.FC<TradeNowProps> = ({ tradeRef, parsedOptions }) => {
             <motion.div
               initial={{ y: '7%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="w-full flex justify-center h-full absolute"
+              className="w-full lg:flex justify-center min-h-full"
             >
-              <StepThree options={parsedOptions.WETH[optionType]} />
+              <StepThree options={parsedOptions[asset === COINS.ETHEREUM ? 'WETH' : 'WBTC'][optionType]} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -76,7 +79,7 @@ const TradeNow: React.FC<TradeNowProps> = ({ tradeRef, parsedOptions }) => {
             <motion.div
               initial={{ y: '7%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="w-full flex justify-center h-full absolute"
+              className="w-full lg:flex justify-center min-h-full"
             >
               <StepFour />
             </motion.div>

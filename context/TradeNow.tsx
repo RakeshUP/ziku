@@ -20,6 +20,9 @@ export enum TradeActions {
   OPTION_SELECTED,
   GO_BACK,
   GO_FORWARD,
+  TRANSACTION_UPDATE,
+  UPDATE_TOKEN_AMOUNT,
+  UPDATE_EXPIRY,
 }
 
 type TradeNowType = {
@@ -27,7 +30,11 @@ type TradeNowType = {
   mostForwardStep: Steps;
   optionType: OptionType | null;
   asset: COINS | null;
-  selectedOtoken: otokens_otokens | null,
+  selectedOtoken: otokens_otokens | null;
+  transactionLoading: boolean;
+  transactionHash: string | null;
+  tokenAmount: number;
+  expiry: string | null;
 };
 
 type TradeContextType = {
@@ -41,6 +48,10 @@ const initialState: TradeNowType = {
   optionType: OptionType.CALLS,
   asset: null,
   selectedOtoken: null,
+  transactionLoading: false,
+  transactionHash: null,
+  tokenAmount: 1,
+  expiry: null,
 };
 
 const TradeContext = React.createContext(null);
@@ -58,6 +69,12 @@ const tradeReducer: (state: TradeNowType, action: any) => TradeNowType = (state,
       return { ...state, step: state.step - 1 };
     case TradeActions.GO_FORWARD:
       return { ...state, step: state.step + 1 };
+    case TradeActions.TRANSACTION_UPDATE:
+      return { ...state, ...action.payload };
+    case TradeActions.UPDATE_TOKEN_AMOUNT:
+      return { ...state, tokenAmount: action.payload };
+    case TradeActions.UPDATE_EXPIRY:
+      return { ...state, expiry: action.payload };
   }
   return state;
 }

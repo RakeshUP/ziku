@@ -1,21 +1,18 @@
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState } from 'react';
-import { ethers } from 'ethers';
+import { useCallback } from 'react';
 import zeroXAbi from '../abis/0x.json';
 import { useWallet } from '../context/wallet';
 import { SignedOrder } from '../types';
 import { ZX_EXCHANGE } from '../utils/address';
 import { useGasPrice } from './useGasPrice';
+import { TradeActions, useTradeState } from '../context/TradeNow';
 
-type FillOrderArgs = {
-  orders: SignedOrder[];
-  amounts: BigNumber[];
-};
 
 const FEE_PERORDER_PER_GWEI = 0.00007
 
 export const use0x = () => {
-  const { network, web3, address, signer } = useWallet();
+  const { network, web3, address } = useWallet();
+  const { dispatch } = useTradeState();
 
   const { fast, fastest } = useGasPrice(5)
 
@@ -49,18 +46,21 @@ export const use0x = () => {
       const feeInEth = getProtocolFee(orders).toString()
       const amountsStr = amounts.map(amount => amount.toString())
 
-      console.log(`only filling first order la, orders[0]`, orders[0])
-
-      // change to batch Fill when it's live
-      await exchange.methods
-        .batchFillLimitOrders(orders, signatures, amountsStr, false)
-        .send({
-          from: address,
-          value: web3.utils.toWei(feeInEth, 'ether'),
-          gasPrice: web3.utils.toWei(gasPrice.toString(), 'gwei'),
-        })
-        .on('transactionHash', console.log)
-
+      dispatch({ type: TradeActions.TRANSACTION_UPDATE, payload: { transactionLoading: true }})
+      try {
+        await exchange.methods
+          .batchFillLimitOrders(orders, signatures, amountsStr, false)
+          .send({
+            from: address,
+            value: web3.utils.toWei(feeInEth, 'ether'),
+            gasPrice: web3.utils.toWei(gasPrice.toString(), 'gwei'),
+          })
+          .on('transactionHash', (hash: string) => dispatch({ type: TradeActions.TRANSACTION_UPDATE, payload: { transactionHash: hash }}))
+        dispatch({ type: TradeActions.TRANSACTION_UPDATE, payload: { transactionLoading: false, transactionHash: null }})
+      } catch(e) {
+        console.log(e)
+        dispatch({ type: TradeActions.TRANSACTION_UPDATE, payload: { transactionLoading: false, transactionHash: null }})
+      }
     },
     [network, getProtocolFee, getGasPriceForOrders, address, web3],
   )

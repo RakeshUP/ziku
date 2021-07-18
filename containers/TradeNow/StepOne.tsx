@@ -6,13 +6,13 @@ import { TradeActions, useTradeState } from "../../context/TradeNow";
 
 const StepOne = () => {
   const { dispatch } = useTradeState();
-  const ethPrice = useCoinPrice(COINS.ETHEREUM);
-  const btcPrice = useCoinPrice(COINS.BITCOIN);
+  const { price: ethPrice, dayChange: ethChange } = useCoinPrice(COINS.ETHEREUM);
+  const { price: btcPrice, dayChange: btcChange } = useCoinPrice(COINS.BITCOIN);
 
   return (
     <>
       <div
-        className="w-1/2 mr-2 p-4 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
+        className="w-11/12 mx-auto lg:w-1/2 lg:mr-2 p-4 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
         onClick={() => dispatch({ type: TradeActions.ASSET_SELECTED, payload: COINS.ETHEREUM })}
       >
         <h1 className="px-2.5 py-1.5 rounded-lg bg-gray-700 w-max text-sm font-medium tracking-wide">WETH</h1>
@@ -27,13 +27,13 @@ const StepOne = () => {
           <div className="text-right">
             <p className="uppercase text-xs opacity-80">24h change</p>
             <p className="mt-1 text-xl">
-              -1.61%
+              {parseFloat(ethChange).toFixed(2)}%
             </p>
           </div>
         </div>
       </div>
       <div
-        className="w-1/2 ml-2 p-4 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
+        className="w-11/12 mx-auto mt-4 lg:mt-0 lg:w-1/2 lg:ml-2 p-4 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
         onClick={() => dispatch({ type: TradeActions.ASSET_SELECTED, payload: COINS.BITCOIN })}
       >
         <h1 className="px-2.5 py-1.5 rounded-lg bg-gray-700 w-max text-sm font-medium tracking-wide">WBTC</h1>
@@ -48,7 +48,7 @@ const StepOne = () => {
           <div className="text-right">
             <p className="uppercase text-xs opacity-80">24h change</p>
             <p className="mt-1 text-xl">
-              -1.61%
+              {parseFloat(btcChange).toFixed(2)}%
             </p>
           </div>
         </div>

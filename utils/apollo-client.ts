@@ -6,7 +6,7 @@ const mainnet = new ApolloClient({
 })
 
 const ropsten = new ApolloClient({
-  uri: 'https://api.thegraph.com/subgraphs/name/opynfinance/gamma-mainnet',
+  uri: 'https://api.thegraph.com/subgraphs/name/opynfinance/gamma-ropsten',
   cache: new InMemoryCache(),
 })
 

@@ -9,6 +9,7 @@ import useCoinPrice from "../../hooks/useCoinPrice";
 import useOrders from "../../hooks/useOrders";
 import { otokens_otokens } from "../../queries/__generated__/otokens";
 import { toTokenAmount } from "../../utils/calculations";
+import { useEffect } from "react";
 
 const ZikuTooltip = withStyles((theme) => ({
   tooltip: {
@@ -26,20 +27,24 @@ type StepThreeProps = {
 };
 
 const StepThree: React.FC<StepThreeProps> = ({ options }) => {
-  const { tradeState: { asset, optionType, selectedOtoken }, dispatch } = useTradeState();
-  const assetPrice = useCoinPrice(asset);
-  const [selectedDate, setSelectedDate] = useState<string>(Object.keys(options)[0]);
+  const { tradeState: { asset, optionType, selectedOtoken, expiry }, dispatch } = useTradeState();
+  const { price: assetPrice } = useCoinPrice(asset);
+  const [selectedDate, setSelectedDate] = useState<string>(expiry || Object.keys(options)[0]);
   const [guessPrice, setGuessPrice] = useState(toTokenAmount(options[selectedDate][options[selectedDate].length - 1].strikePrice, 8).toNumber())
   const [selectedOToken, setSelectedOToken] = useState<otokens_otokens | null>(selectedOtoken);
-  const { asks, bestPrice } = useOrders(selectedOToken?.id)
+  const { bestPrice } = useOrders(selectedOToken?.id)
 
-  console.log(options[selectedDate][options[selectedDate].length - 1]);
+  useEffect(() => {
+    if (selectedDate !== expiry) {
+      dispatch({ type: TradeActions.UPDATE_EXPIRY, payload: selectedDate})
+    }
+  }, [selectedDate])
 
   return (
-    <div className="w-full p-4 border-2 border-gray-700 rounded-xl flex text-xl">
-      <div className="w-7/12 flex flex-col">
-        <div className="flex justify-between items-baseline">
-          <p className="flex-shrink-0 mr-6">Strike price</p>
+    <div className="w-11/12 mx-auto lg:w-full p-4 border-2 border-gray-700 rounded-xl lg:flex text-lg lg:text-xl">
+      <div className="lg:w-7/12 flex flex-col">
+        <div className="flex justify-between items-center">
+          <p className="mr-6">Speculated price</p>
           <div className="border-2 border-gray-700 rounded-xl p-2 flex">
             <p className="text-lg px-2 py-0.5 rounded-lg font-medium gradient-element">USD</p>
             <input
@@ -50,8 +55,8 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
             />
           </div>
         </div>
-        <div className="mt-4 flex justify-between items-baseline">
-          <p className="flex-shrink-0 mr-4">Expiration date</p>
+        <div className="mt-6 flex justify-between items-center">
+          <p className="mr-4">Expiration date</p>
           <div className="border-2 border-gray-700 rounded-xl p-2 flex">
             <select
               className="bg-surface focus:outline-none text-lg"
@@ -69,10 +74,11 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
         <div className="mt-4 overflow-scroll flex-1 grid grid-cols-2 grid-flow-row auto-rows-max gap-2">
           {options[selectedDate].map((item: otokens_otokens) => {
             const strikePrice = toTokenAmount(item.strikePrice, 8).toNumber();
-            if (strikePrice > guessPrice) return;
+            if ((optionType === OptionType.CALLS && strikePrice > guessPrice) || (optionType === OptionType.PUTS && strikePrice < guessPrice)) return;
 
             return (
               <button
+                key={strikePrice}
                 onClick={() => setSelectedOToken(item)}
                 className={`rounded-xl px-4 py-2 text-sm gradient-element transform hover:scale-95 transition-all duration-100 focus:outline-none`}
               >
@@ -83,7 +89,7 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
           })}
         </div>
       </div>
-      <div className="w-5/12 flex flex-col justify-between space-y-2 pl-4">
+      <div className="lg:w-5/12 mt-6 lg:mt-0 flex flex-col justify-between space-y-2 lg:pl-4">
         <div className="flex-1 border-2 border-gray-700 rounded-xl p-3 text-center flex flex-col justify-center">
           <h1 className="ml-4 text-base font-light opacity-80">
             Premium cost 
@@ -130,7 +136,7 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
               </IconButton>
             </ZikuTooltip>
           </h1>
-          <p className="mt-1">{bestPrice === Infinity? 'N/A' : toTokenAmount(selectedOToken?.strikePrice, 8).toNumber() + bestPrice}</p>
+          <p className="mt-1">{bestPrice === Infinity? 'N/A' : toTokenAmount(selectedOToken?.strikePrice, 8).toNumber() + (bestPrice * (optionType === OptionType.PUTS ? -1 : 1))}</p>
         </div>
         <button
           disabled={selectedOToken === null || bestPrice === Infinity}

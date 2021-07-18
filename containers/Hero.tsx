@@ -4,9 +4,8 @@ const Hero: React.FC<{ scrollToTrade: () => any }> = ({ scrollToTrade }) => (
       <p className="gradient-text">DeFi Options</p>
       <p className="opacity-90">for beginners.</p>
     </h1>
-    <h2 className="mt-16 lg:mt-12 text-center text-lg lg:text-xl leading-relaxed opacity-80">
-      Earn income by speculating the price movements of crypto
-      <br />
+    <h2 className="w-10/12 lg:w-1/2 mx-auto mt-16 lg:mt-12 text-center text-lg lg:text-xl lg:leading-relaxed opacity-80">
+      Earn income by speculating on the price movements of crypto
       assets within a specific timeframe by buying options.
     </h2>
     <button

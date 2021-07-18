@@ -15,14 +15,14 @@ const useOptions = () => {
   useEffect(() => {
     if (loading) return;
     const oTokens = data?.otokens.filter((o) => new Date(o.expiryTimestamp * 1000).getUTCDay() === 5)
-  
+
     for (const option of oTokens) {
       if (option.underlyingAsset.symbol === option.collateralAsset.symbol) {
         if (!parsedOptions[option.underlyingAsset.symbol].calls[option.expiryTimestamp]) {
           parsedOptions[option.underlyingAsset.symbol].calls[option.expiryTimestamp] = []
         }
         parsedOptions[option.underlyingAsset.symbol].calls[option.expiryTimestamp].push(option)
-      } else {
+      } else if (option.strikeAsset.symbol === option.collateralAsset.symbol) {
         if (!parsedOptions[option.underlyingAsset.symbol].puts[option.expiryTimestamp]) {
           parsedOptions[option.underlyingAsset.symbol].puts[option.expiryTimestamp] = []
         }

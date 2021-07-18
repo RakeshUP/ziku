@@ -1,11 +1,11 @@
 import UpArrowIcon from "../../assets/UpArrow";
 import { Steps, TradeActions, useTradeState } from "../../context/TradeNow";
 
-const Stepper = () => {
+const HorizontalStepper = () => {
   const { tradeState: { step, mostForwardStep }, dispatch } = useTradeState();
 
   return (
-    <div className="hidden lg:visible absolute left-0 transform -translate-x-2-full lg:flex lg:flex-col">
+    <div className="lg:hidden mb-6 flex items-center justify-center space-x-3">
       <button
         disabled={step <= 1}
         className={`p-3.5 rounded-full bg-overlay group focus:outline-none ${step <= 1 && 'opacity-25 cursor-default'}`}
@@ -15,16 +15,16 @@ const Stepper = () => {
       </button>
       <button
         disabled={step >= Object.keys(Steps).length / 2 || step >= mostForwardStep}
-        className={`mt-4 p-3.5 rounded-full bg-overlay group focus:outline-none ${(step >= Object.keys(Steps).length / 2 || step >= mostForwardStep) && 'opacity-25 cursor-default'}`}
+        className={`p-3.5 rounded-full bg-overlay group focus:outline-none ${(step >= Object.keys(Steps).length / 2 || step >= mostForwardStep) && 'opacity-25 cursor-default'}`}
         onClick={() => dispatch({ type: TradeActions.GO_FORWARD })}
       >
         <UpArrowIcon className={`w-5 h-5 transform rotate-180 ${step < Object.keys(Steps).length / 2 && 'opacity-70 group-hover:opacity-100'}`} />
       </button>
-      <div className="mt-4 text-xs text-center tracking-widest font-medium opacity-50">
+      <div className="text-xs text-center tracking-widest font-medium opacity-50">
         0{step}/0{Object.keys(Steps).length / 2}
       </div>
     </div>
   );
 };
 
-export default Stepper;
+export default HorizontalStepper;

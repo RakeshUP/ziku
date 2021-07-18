@@ -12,9 +12,11 @@ import OPTIONS_QUERY from '../queries/optionsQuery';
 import { otokens, otokensVariables } from '../queries/__generated__/otokens';
 import apolloClient from '../utils/apollo-client'
 import { useWallet } from "../context/wallet";
+import useOptions from '../hooks/useOptions';
 
-export default function Home({ options, parsedOptions }) {
+export default function Home() {
   const { address, selectWallet } = useWallet();
+  const { options, parsedOptions } = useOptions()
 
   const tradeRef = useRef<HTMLDivElement>(null);
 
@@ -43,30 +45,4 @@ export default function Home({ options, parsedOptions }) {
       <Footer />
     </>
   );
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const parsedOptions = {
-    WETH: { puts: {}, calls: {} },
-    WBTC: { puts: {}, calls: {} },
-  }
-  const current = parseInt((Date.now() / 1000).toString());
-  const { data } = await apolloClient[1].query<otokens, otokensVariables>({ query: OPTIONS_QUERY, variables: { expiry: current } })
-  const oTokens = data.otokens
-    .filter((o) => new Date(o.expiryTimestamp * 1000).getUTCDay() === 5)
-    .sort((a, b) => new BigNumber(a.strikePrice).minus(new BigNumber(b.strikePrice)).toNumber())
-  for (const option of oTokens) {
-    if (option.underlyingAsset.symbol === option.collateralAsset.symbol) {
-      if (!parsedOptions[option.underlyingAsset.symbol].calls[option.expiryTimestamp]) {
-        parsedOptions[option.underlyingAsset.symbol].calls[option.expiryTimestamp] = []
-      }
-      parsedOptions[option.underlyingAsset.symbol].calls[option.expiryTimestamp].push(option)
-    } else {
-      if (!parsedOptions[option.underlyingAsset.symbol].puts[option.expiryTimestamp]) {
-        parsedOptions[option.underlyingAsset.symbol].puts[option.expiryTimestamp] = []
-      }
-      parsedOptions[option.underlyingAsset.symbol].puts[option.expiryTimestamp].push(option)
-    }
-  }
-  return { props: { options: oTokens, parsedOptions } }
 }

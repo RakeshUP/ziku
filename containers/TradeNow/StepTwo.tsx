@@ -8,13 +8,13 @@ const StepTwo = () => {
   return (
     <>
       <div
-        className="w-1/2 mr-2 p-6 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
+        className="w-11/12 mx-auto lg:w-1/2 lg:mr-2 p-6 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
         onClick={() => dispatch({ type: TradeActions.OPTION_TYPE_SELECTED, payload: OptionType.CALLS })}
       >
         <div>
-          <p className="flex items-center text-4xl opacity-90">
+          <p className="flex items-center text-2xl lg:text-4xl opacity-90">
             Go up
-            <UpArrowCircleIcon className="w-12 h-12 ml-2" />
+            <UpArrowCircleIcon className="w-8 h-8 lg:w-12 lg:h-12 ml-2" />
           </p>
           <div className="mt-6 text-white text-opacity-70 leading-relaxed tracking-wide font-light">
             <div className="flex space-x-1">
@@ -33,13 +33,13 @@ const StepTwo = () => {
         </div>
       </div>
       <div
-        className="w-1/2 ml-2 p-6 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
+        className="w-11/12 mx-auto mt-4 lg:mt-0 lg:w-1/2 lg:ml-2 p-6 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
         onClick={() => dispatch({ type: TradeActions.OPTION_TYPE_SELECTED, payload: OptionType.PUTS })}
       >
         <div>
-          <p className="flex items-center text-4xl opacity-90">
+          <p className="flex items-center text-2xl lg:text-4xl opacity-90">
             Go down
-            <UpArrowCircleIcon className="w-12 h-12 ml-2 transform rotate-180" />
+            <UpArrowCircleIcon className="w-8 h-8 lg:w-12 lg:h-12 ml-2 transform rotate-180" />
           </p>
           <div className="mt-6 text-white text-opacity-70 leading-relaxed tracking-wide font-light">
             <div className="flex space-x-1">
