@@ -23,34 +23,48 @@ const Position = () => {
 
   return (
     <>
-      <h2 className="text-lg text-cyan mb-8">My positions</h2>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="Position table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Type</TableCell>
-              <TableCell align="right">Underlying</TableCell>
-              <TableCell align="right">Strike Price</TableCell>
-              <TableCell align="right">Amount</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {positions.map((position) => (
-              <TableRow key={position.token.id}>
-                <TableCell component="th" scope="row">
-                  {position.token.isPut ? 'Put' : 'Call'}
-                </TableCell>
-                <TableCell align="right">{position.token.underlyingAsset.symbol}</TableCell>
-                <TableCell align="right">${toTokenAmount(position.token.strikePrice, 8).toNumber()}</TableCell>
-                <TableCell align="right">{toTokenAmount(position.balance, position.token.decimals).toNumber()}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {positions.length > 0 ? (
+        <>
+          <h2 className="text-lg text-cyan">My positions</h2>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="Position table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Type</TableCell>
+                  <TableCell align="right">Underlying</TableCell>
+                  <TableCell align="right">Strike Price</TableCell>
+                  <TableCell align="right">Amount</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {positions.map((position) => (
+                  <TableRow key={position.token.id}>
+                    <TableCell component="th" scope="row">
+                      {position.token.isPut ? 'Put' : 'Call'}
+                    </TableCell>
+                    <TableCell align="right">{position.token.underlyingAsset.symbol}</TableCell>
+                    <TableCell align="right">${toTokenAmount(position.token.strikePrice, 8).toNumber()}</TableCell>
+                    <TableCell align="right">{toTokenAmount(position.balance, position.token.decimals).toNumber()}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : (
+        <h1 className="text-xl mb-8 text-center">You don't have any positions</h1>
+      )}
 
-      <p className="mt-8 text-base">
-        Perform advanced options <a className="text-cyan" href="https://v2.opyn.co/#/dashboard" target="_blank">here</a>
+      <p className="mt-8 text-center text-base">
+        Perform advanced options at
+        {' '}
+        <a 
+          className="text-cyan"
+          href="https://v2.opyn.co/#/dashboard"
+          target="_blank"
+        >
+          Opyn
+        </a>
       </p>
     </>
   )

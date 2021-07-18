@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: '#282A2D',
+    backgroundColor: '#202124',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    borderRadius: '8px',
+    padding: theme.spacing(4),
+    borderRadius: '16px',
   },
 }));
 
@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ address, selectWallet, displayAddress }
       </div>
       <div>
         { address && address !== '' ?  (
-          <button className="mr-2 hover:text-cyan focus:outline-none" onClick={() => setShowModal(true)}>
+          <button className="mr-6 hover:text-cyan focus:outline-none" onClick={() => setShowModal(true)}>
             My Positions
           </button>
         ) : null }
