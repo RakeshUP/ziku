@@ -29,6 +29,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;800&display=swap" rel="stylesheet" />
         <link rel="icon" type="image/png" href="/favicon.svg"/>
+        <title>Ziku - Interactive interface for beginners to buy options</title>
       </Head>
       <Header address={address} selectWallet={selectWallet} displayAddress={displayAddress} />
       <main className="mt-16 lg:mt-24">
