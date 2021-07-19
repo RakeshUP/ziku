@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,18 +9,8 @@ import useCoinPrice from "../../hooks/useCoinPrice";
 import useOrders from "../../hooks/useOrders";
 import { otokens_otokens } from "../../queries/__generated__/otokens";
 import { toTokenAmount } from "../../utils/calculations";
-import { useEffect } from "react";
+import ZikuTooltip from './ToolTip';
 
-const ZikuTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: '#282A2D',
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontSize: '0.875rem',
-    borderRadius: '0.5rem',
-    padding: '0.75rem',
-    fontFamily: 'inherit',
-  },
-}))(Tooltip);
 
 type StepThreeProps = {
   options: any;
