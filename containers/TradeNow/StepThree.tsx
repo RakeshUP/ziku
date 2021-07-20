@@ -11,7 +11,6 @@ import { otokens_otokens } from "../../queries/__generated__/otokens";
 import { toTokenAmount } from "../../utils/calculations";
 import ZikuTooltip from './ToolTip';
 
-
 type StepThreeProps = {
   options: any;
 };

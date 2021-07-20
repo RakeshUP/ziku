@@ -7,6 +7,7 @@ export enum Steps {
   EXPLAIN,
   SELECT_OPTION,
   BUY,
+  COMPLETED,
 }
 
 export enum OptionType {

@@ -4,6 +4,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
+import StepFive from './StepFive';
 import { Steps, useTradeState } from "../../context/TradeNow";
 import Stepper from "./Stepper";
 import { COINS } from '../../hooks/useCoinPrice';
@@ -82,6 +83,17 @@ const TradeNow: React.FC<TradeNowProps> = ({ tradeRef, parsedOptions }) => {
               className="w-full lg:flex justify-center min-h-full"
             >
               <StepFour />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {step === Steps.COMPLETED && (
+            <motion.div
+              initial={{ y: '7%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              className="w-full lg:flex justify-center min-h-full"
+            >
+              <StepFive />
             </motion.div>
           )}
         </AnimatePresence>
