@@ -77,8 +77,8 @@ const StepTwo = () => {
   }
 
   return (
-    <div className="w-11/12 flex lg:w-full p-4 border-2 border-gray-700 rounded-xl text-lg lg:text-xl">
-      <div className="w-1/2">
+    <div className="w-11/12 mx-auto lg:flex lg:w-full p-4 border-2 border-gray-700 rounded-xl text-lg lg:text-xl">
+      <div className="lg:w-1/2">
         <div className="flex flex-col space-y-3">
           <p className="opacity-70 text-base">Option amount</p>
           <div className="border-2 border-gray-700 rounded-xl p-2 flex">
@@ -121,8 +121,8 @@ const StepTwo = () => {
         }   
         </div>
       </div>
-      <div className="ml-4">
-        <h1 className="ml-4 text-base font-light opacity-80">
+      <div className="lg:w-1/2 mt-10 lg:mt-0 lg:ml-4">
+        <h1 className="ml-1 text-base font-light opacity-80">
           Payout
           <ZikuTooltip 
             title="Profit/Loss graph for one option"
