@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import BigNumber from "bignumber.js";
+import InfoIcon from '@material-ui/icons/Info';
+import IconButton from '@material-ui/core/IconButton';
 
 import { TradeActions, useTradeState } from "../../context/TradeNow";
 import { useWallet } from "../../context/wallet";
@@ -14,6 +16,8 @@ import { SignedOrder } from "../../types";
 import use0x from "../../hooks/use0x";
 import { useUserAllowance } from "../../hooks/useAllowance";
 import { ETHERSCAN } from "../../utils/constants";
+import Payout from './Payout';
+import ZikuTooltip from './ToolTip';
 
 const StepTwo = () => {
   const { tradeState: { selectedOtoken, transactionHash, transactionLoading, tokenAmount }, dispatch } = useTradeState();
@@ -73,47 +77,61 @@ const StepTwo = () => {
   }
 
   return (
-    <div className="w-11/12 mx-auto lg:w-full p-4 border-2 border-gray-700 rounded-xl text-lg lg:text-xl">
-      <div className="flex flex-col items-center space-y-3">
-        <p className="opacity-70 text-base">Option amount</p>
-        <div className="border-2 border-gray-700 rounded-xl p-2 flex">
+    <div className="w-11/12 mx-auto lg:flex lg:w-full p-4 border-2 border-gray-700 rounded-xl text-lg lg:text-xl">
+      <div className="lg:w-1/2">
+        <div className="flex flex-col space-y-3">
+          <p className="opacity-70 text-base">Option amount</p>
+          <div className="border-2 border-gray-700 rounded-xl p-2 flex">
+            <button 
+              onClick={() => dispatch({ type: TradeActions.UPDATE_TOKEN_AMOUNT, payload: toTokenAmount(maxAmount, 8).toNumber()})}
+              className="text-lg px-2 py-0.5 rounded-lg font-medium gradient-element focus:outline-none">MAX</button>
+            <input
+              type="number"
+              className="w-full bg-surface text-right focus:outline-none placeholder-white placeholder-opacity-25"
+              value={tokenAmount}
+              onChange={e => dispatch({ type: TradeActions.UPDATE_TOKEN_AMOUNT, payload: parseInt(e.target.value)})}
+            />
+          </div>
+        </div>
+        <div className="mt-6 space-y-1">
+          <span className="opacity-70 text-base">USDC balance: </span>
+          <span>${toTokenAmount(usdcBalance, 6).toNumber()}</span>
+        </div>
+        <div className="mt-6 space-y-1">
+          <span className="opacity-70 text-base">Amount to pay: </span>
+          <span>${toTokenAmount(sumAmount, 6).toNumber()}</span>
+        </div>
+        <div>
+        { isLoadingAllowance ? 
           <button 
-            onClick={() => dispatch({ type: TradeActions.UPDATE_TOKEN_AMOUNT, payload: toTokenAmount(maxAmount, 8).toNumber()})}
-            className="text-lg px-2 py-0.5 rounded-lg font-medium gradient-element focus:outline-none">MAX</button>
-          <input
-            type="number"
-            className="w-full bg-surface text-right focus:outline-none placeholder-white placeholder-opacity-25"
-            value={tokenAmount}
-            onChange={e => dispatch({ type: TradeActions.UPDATE_TOKEN_AMOUNT, payload: parseInt(e.target.value)})}
-          />
+            className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
+            Loading
+          </button> :
+          allowance.lt(sumAmount) ?
+          <button 
+            onClick={() => approveUsdc()}
+            className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
+            {approving ? 'Approving...' : 'Approve'} 
+          </button> :
+          <button 
+            onClick={() => buy()}
+            className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
+            Buy
+          </button>
+        }   
         </div>
       </div>
-      <div className="mt-6 flex flex-col items-center space-y-1">
-        <p className="opacity-70 text-base">USDC balance</p>
-        <p>${toTokenAmount(usdcBalance, 6).toNumber()}</p>
-      </div>
-      <div className="mt-6 flex flex-col items-center space-y-1">
-        <p className="opacity-70 text-base">Amount to pay</p>
-        <p>${toTokenAmount(sumAmount, 6).toNumber()}</p>
-      </div>
-      <div>
-      { isLoadingAllowance ? 
-        <button 
-          className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
-          Loading
-        </button> :
-        allowance.lt(sumAmount) ?
-        <button 
-          onClick={() => approveUsdc()}
-          className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
-          {approving ? 'Approving...' : 'Approve'} 
-        </button> :
-        <button 
-          onClick={() => buy()}
-          className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
-          Buy
-        </button>
-      }   
+      <div className="lg:w-1/2 mt-10 lg:mt-0 lg:ml-4">
+        <h1 className="ml-1 text-base font-light opacity-80">
+          Payout
+          <ZikuTooltip 
+            title="Profit/Loss graph for one option"
+            placement="right"
+          >
+            <InfoIcon fontSize="small" className="ml-1 -mt-1 text-gray-300"/>
+          </ZikuTooltip>
+        </h1>
+        <Payout optionPrice={toTokenAmount(sumAmount, 6).toNumber() / tokenAmount} />
       </div>
     </div>
   );
