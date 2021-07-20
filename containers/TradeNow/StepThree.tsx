@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,7 +9,6 @@ import useCoinPrice from "../../hooks/useCoinPrice";
 import useOrders from "../../hooks/useOrders";
 import { otokens_otokens } from "../../queries/__generated__/otokens";
 import { toTokenAmount } from "../../utils/calculations";
-import { useEffect } from "react";
 
 const ZikuTooltip = withStyles((theme) => ({
   tooltip: {
