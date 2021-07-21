@@ -24,6 +24,7 @@ export enum TradeActions {
   TRANSACTION_UPDATE,
   UPDATE_TOKEN_AMOUNT,
   UPDATE_EXPIRY,
+  TRADE_SUCCESS,
 }
 
 type TradeNowType = {
@@ -76,6 +77,8 @@ const tradeReducer: (state: TradeNowType, action: any) => TradeNowType = (state,
       return { ...state, tokenAmount: action.payload };
     case TradeActions.UPDATE_EXPIRY:
       return { ...state, expiry: action.payload };
+    case TradeActions.TRADE_SUCCESS:
+      return { ...state, mostForwardStep: Steps.COMPLETED, step: state.step + 1 };
   }
   return state;
 }

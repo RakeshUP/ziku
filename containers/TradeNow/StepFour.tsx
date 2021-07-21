@@ -68,6 +68,7 @@ const StepTwo = () => {
         { transactionHash ? (
           <a
             href={`${ETHERSCAN[network]}tx/${transactionHash}`}
+            target="_blank"
             className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
             Open Etherscan
           </a>

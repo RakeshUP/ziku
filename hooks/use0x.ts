@@ -57,6 +57,8 @@ export const use0x = () => {
           })
           .on('transactionHash', (hash: string) => dispatch({ type: TradeActions.TRANSACTION_UPDATE, payload: { transactionHash: hash }}))
         dispatch({ type: TradeActions.TRANSACTION_UPDATE, payload: { transactionLoading: false, transactionHash: null }})
+        dispatch({ type: TradeActions.TRADE_SUCCESS, payload: { }})
+
       } catch(e) {
         console.log(e)
         dispatch({ type: TradeActions.TRANSACTION_UPDATE, payload: { transactionLoading: false, transactionHash: null }})

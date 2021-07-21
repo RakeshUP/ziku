@@ -18,8 +18,8 @@ type StepThreeProps = {
 const StepThree: React.FC<StepThreeProps> = ({ options }) => {
   const { tradeState: { asset, optionType, selectedOtoken, expiry }, dispatch } = useTradeState();
   const { price: assetPrice } = useCoinPrice(asset);
-  const [selectedDate, setSelectedDate] = useState<string>(expiry || Object.keys(options)[0]);
-  const [guessPrice, setGuessPrice] = useState(toTokenAmount(options[selectedDate][options[selectedDate].length - 1].strikePrice, 8).toNumber())
+  const [selectedDate, setSelectedDate] = useState<string>();
+  const [guessPrice, setGuessPrice] = useState<number>()
   const [selectedOToken, setSelectedOToken] = useState<otokens_otokens | null>(selectedOtoken);
   const { bestPrice } = useOrders(selectedOToken?.id)
 
@@ -27,7 +27,15 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
     if (selectedDate !== expiry) {
       dispatch({ type: TradeActions.UPDATE_EXPIRY, payload: selectedDate})
     }
+    if (options[selectedDate]) {
+      setGuessPrice(toTokenAmount(options[selectedDate][options[selectedDate]?.length - 1].strikePrice, 8).toNumber());
+    }
   }, [selectedDate])
+
+  useEffect(() => {
+    const _selectedDate = expiry && options[expiry]?.length ?  expiry : Object.keys(options)[0]
+    setSelectedDate(_selectedDate);
+  }, [expiry, options])
 
   return (
     <div className="w-11/12 mx-auto lg:w-full p-4 border-2 border-gray-700 rounded-xl lg:flex text-lg lg:text-xl">
@@ -61,7 +69,7 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
         </div>
         <h1 className="mt-10">Available {optionType.substr(0, optionType.length - 1)} options for {asset[0].toUpperCase()}{asset.slice(1)}</h1>
         <div className="mt-4 overflow-scroll flex-1 grid grid-cols-2 grid-flow-row auto-rows-max gap-2">
-          {options[selectedDate].map((item: otokens_otokens) => {
+          {options[selectedDate]?.map((item: otokens_otokens) => {
             const strikePrice = toTokenAmount(item.strikePrice, 8).toNumber();
             if ((optionType === OptionType.CALLS && strikePrice > guessPrice) || (optionType === OptionType.PUTS && strikePrice < guessPrice)) return;
 
