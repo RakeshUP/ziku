@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { withStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 
@@ -41,7 +39,17 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
     <div className="w-11/12 mx-auto lg:w-full p-4 border-2 border-gray-700 rounded-xl lg:flex text-lg lg:text-xl">
       <div className="lg:w-7/12 flex flex-col">
         <div className="flex justify-between items-center">
-          <p className="mr-6">Speculated price</p>
+          <p className="mr-6">
+            Speculated price
+            <ZikuTooltip 
+              title={`The amount you think the price of ${asset[0].toUpperCase()}${asset.slice(1)} will be on the expiration date`}
+              placement="right"
+            >
+              <IconButton className="h-4 w-4">
+                <InfoIcon fontSize="small" className="text-gray-300"/>
+              </IconButton>
+            </ZikuTooltip>
+          </p>
           <div className="border-2 border-gray-700 rounded-xl p-2 flex">
             <p className="text-lg px-2 py-0.5 rounded-lg font-medium gradient-element">USD</p>
             <input
@@ -53,7 +61,9 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
           </div>
         </div>
         <div className="mt-6 flex justify-between items-center">
-          <p className="mr-4">Expiration date</p>
+          <p className="mr-4">
+            Expiration date
+          </p>
           <div className="border-2 border-gray-700 rounded-xl p-2 flex">
             <select
               className="bg-surface focus:outline-none text-lg"
@@ -67,7 +77,9 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
             </select>
           </div>
         </div>
-        <h1 className="mt-10">Available {optionType.substr(0, optionType.length - 1)} options for {asset[0].toUpperCase()}{asset.slice(1)}</h1>
+        <h1 className="mt-10">
+          Available {optionType.substr(0, optionType.length - 1)} options for {asset[0].toUpperCase()}{asset.slice(1)}
+        </h1>
         <div className="mt-4 overflow-scroll flex-1 grid grid-cols-2 grid-flow-row auto-rows-max gap-2">
           {options[selectedDate]?.map((item: otokens_otokens) => {
             const strikePrice = toTokenAmount(item.strikePrice, 8).toNumber();
@@ -94,8 +106,8 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
               title="Premium is the current market price of the option contract. This will be your maximum loss"
               placement="right"
             >
-              <IconButton className="ml-1 h-4 w-4">
-                <InfoIcon fontSize="small" className="ml-1 -mt-1 text-gray-300"/>
+              <IconButton className="h-4 w-4">
+                <InfoIcon fontSize="small" className="text-gray-300"/>
               </IconButton>
             </ZikuTooltip>
           </h1>
@@ -111,8 +123,8 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
                 } 
               placement="right"
             >
-              <IconButton className="ml-1 h-4 w-4">
-                <InfoIcon fontSize="small" className="ml-1 -mt-1 text-gray-300"/>
+              <IconButton className="h-4 w-4">
+                <InfoIcon fontSize="small" className="text-gray-300"/>
               </IconButton>
             </ZikuTooltip>
           </h1>
@@ -128,8 +140,8 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
                 }
               placement="right"
             >
-              <IconButton className="ml-1 h-4 w-4">
-                <InfoIcon fontSize="small" className="ml-1 -mt-1 text-gray-300"/>
+              <IconButton className="h-4 w-4">
+                <InfoIcon fontSize="small" className="text-gray-300"/>
               </IconButton>
             </ZikuTooltip>
           </h1>

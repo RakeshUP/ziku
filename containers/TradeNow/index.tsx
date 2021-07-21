@@ -25,7 +25,7 @@ const TradeNow: React.FC<TradeNowProps> = ({ tradeRef, parsedOptions }) => {
     } else if (step === Steps.EXPLAIN) {
       return `What will happen to the price of ${asset[0].toUpperCase()}${asset.slice(1)}?`;
     } else if (step === Steps.SELECT_OPTION) {
-      return 'Select an expiration date and a strike price';
+      return `Select an expiration date and the price you think ${asset[0].toUpperCase()}${asset.slice(1)} will be on that date`;
     } else if (step === Steps.BUY) {
       return 'Enter amount of options and buy';
     }
@@ -36,7 +36,7 @@ const TradeNow: React.FC<TradeNowProps> = ({ tradeRef, parsedOptions }) => {
       <h1 className="text-5xl font-extrabold text-center gradient-text mb-12">
         Trade now.
       </h1>
-      <h2 className="w-10/12 max-w-screen-sm mx-auto text-lg lg:text-xl font-medium text-center text-gray-300 mb-8">
+      <h2 className="w-10/12 lg:w-1/3 lg:h-14 max-w-screen-sm mx-auto text-lg lg:text-xl font-medium text-center text-gray-300 mb-8">
         {questionText()}
       </h2>
       <HorizontalStepper />

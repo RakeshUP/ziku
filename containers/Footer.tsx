@@ -1,19 +1,26 @@
 const Footer = () => (
   <footer className="mt-28 border-t-2 border-gray-700">
-    <div className="w-11/12 max-w-screen-xl mx-auto pb-8 lg:pb-3 py-3 flex justify-between items-center text-gray-300 tracking-wider">
-      <a
-        href="/"
-        target="_blank"
-        className="hover:text-cyan"
-        rel="noreferrer"
-      >
-        © Ziku
-      </a>
-      <div className="text-xs space-x-5 lg:space-x-8">
+    <div className="w-11/12 max-w-screen-xl mx-auto py-8 lg:flex justify-between text-gray-300 tracking-wider">
+      <p className="lg:w-1/3 font-light">
+        <span className="font-medium">Ziku</span>
+        {' '}
+        is a product by 
+        {' '}
+        <a
+          href="https://wisgloo.com/"
+          target="_blank"
+          className="font-medium hover:text-cyan"
+          rel="noreferrer"
+        >
+          Wisgloo Labs
+        </a>
+        , a mission-driven product studio that works to solve meaningful problems worldwide.
+      </p>
+      <div className="mt-6 lg:mt-0 lg:text-right text-xs lg:text-sm">
         <a
           href="https://twitter.com/zikufinance"
           target="_blank"
-          className="uppercase hover:text-cyan"
+          className="block uppercase hover:text-cyan"
           rel="noreferrer"
         >
           Twitter
@@ -21,7 +28,7 @@ const Footer = () => (
         <a
           href="https://github.com/wisgloo/ziku"
           target="_blank"
-          className="uppercase hover:text-cyan"
+          className="mt-2 block uppercase hover:text-cyan"
           rel="noreferrer"
         >
           Github
