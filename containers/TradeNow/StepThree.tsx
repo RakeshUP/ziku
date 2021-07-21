@@ -21,18 +21,19 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
   const [selectedOToken, setSelectedOToken] = useState<otokens_otokens | null>(selectedOtoken);
   const { bestPrice } = useOrders(selectedOToken?.id)
 
+
   useEffect(() => {
-    if (selectedDate !== expiry) {
+    if (selectedDate !== expiry && selectedDate) {
       dispatch({ type: TradeActions.UPDATE_EXPIRY, payload: selectedDate})
-    }
-    if (options[selectedDate]) {
-      setGuessPrice(toTokenAmount(options[selectedDate][options[selectedDate]?.length - 1].strikePrice, 8).toNumber());
     }
   }, [selectedDate])
 
   useEffect(() => {
     const _selectedDate = expiry && options[expiry]?.length ?  expiry : Object.keys(options)[0]
     setSelectedDate(_selectedDate);
+    if (options[_selectedDate]) {
+      setGuessPrice(toTokenAmount(options[_selectedDate][options[_selectedDate]?.length - 1].strikePrice, 8).toNumber());
+    }
   }, [expiry, options])
 
   return (
@@ -68,7 +69,7 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
             <select
               className="bg-surface focus:outline-none text-lg"
               onChange={e => setSelectedDate(e.target.value)}
-              defaultValue={selectedDate}
+              defaultValue={expiry}
             >
               {Object.keys(options).map((val) =>
                 <option key={val} value={val}>
