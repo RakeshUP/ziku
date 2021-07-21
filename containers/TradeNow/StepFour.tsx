@@ -80,9 +80,9 @@ const StepTwo = () => {
   return (
     <div className="w-11/12 mx-auto lg:flex lg:w-full p-4 border-2 border-gray-700 rounded-xl text-lg lg:text-xl">
       <div className="lg:w-1/2">
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col">
           <p className="opacity-70 text-base">Option amount</p>
-          <div className="border-2 border-gray-700 rounded-xl p-2 flex">
+          <div className="border-2 border-gray-700 rounded-xl p-2 flex mt-3">
             <button 
               onClick={() => dispatch({ type: TradeActions.UPDATE_TOKEN_AMOUNT, payload: toTokenAmount(maxAmount, 8).toNumber()})}
               className="text-lg px-2 py-0.5 rounded-lg font-medium gradient-element focus:outline-none">MAX</button>
@@ -93,6 +93,9 @@ const StepTwo = () => {
               onChange={e => dispatch({ type: TradeActions.UPDATE_TOKEN_AMOUNT, payload: parseInt(e.target.value)})}
             />
           </div>
+          <p className={`${tokenAmount > toTokenAmount(maxAmount, 8).toNumber() ? 'visible' : 'invisible'} mt-1 text-right text-xs font-medium text-red-400`}>
+            Not enough liquidity available
+          </p>
         </div>
         <div className="mt-6 space-y-1">
           <span className="opacity-70 text-base">USDC balance: </span>

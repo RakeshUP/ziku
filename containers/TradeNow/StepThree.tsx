@@ -80,7 +80,7 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
         <h1 className="mt-10">
           Available {optionType.substr(0, optionType.length - 1)} options for {asset[0].toUpperCase()}{asset.slice(1)}
         </h1>
-        <div className="mt-4 overflow-scroll flex-1 grid grid-cols-2 grid-flow-row auto-rows-max gap-2">
+        <div className="mt-4 overflow-y-auto no-scrollbar flex-1 grid grid-cols-2 grid-flow-row auto-rows-max gap-2">
           {options[selectedDate]?.map((item: otokens_otokens) => {
             const strikePrice = toTokenAmount(item.strikePrice, 8).toNumber();
             if ((optionType === OptionType.CALLS && strikePrice > guessPrice) || (optionType === OptionType.PUTS && strikePrice < guessPrice)) return;
