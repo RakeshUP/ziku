@@ -38,11 +38,12 @@ const Header: React.FC<HeaderProps> = ({ address, selectWallet, displayAddress }
       </div>
       <div>
         { address && address !== '' ?  (
-          <button className="mr-6 hover:text-cyan focus:outline-none" onClick={() => setShowModal(true)}>
+          <button id="My Positions" className="mr-6 hover:text-cyan focus:outline-none" onClick={() => setShowModal(true)}>
             My Positions
           </button>
         ) : null }
         <button
+          id="Connect Wallet"
           onClick={selectWallet}
           className="border-2 border-gray-700 px-5 py-2.5 rounded-xl text-sm gradient-button hover:text-gray-900 focus:outline-none">
           {address && address !== '' ? displayAddress : 'Connect Wallet'}

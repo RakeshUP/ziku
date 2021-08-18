@@ -7,6 +7,7 @@ const Footer = () => (
         is a product by 
         {' '}
         <a
+          id="Wisgloo Home"
           href="https://wisgloo.com/"
           target="_blank"
           className="font-medium hover:text-cyan"
@@ -18,6 +19,7 @@ const Footer = () => (
       </p>
       <div className="mt-6 lg:mt-0 lg:text-right text-xs lg:text-sm">
         <a
+          id="Ziku Twitter"
           href="https://twitter.com/zikufinance"
           target="_blank"
           className="block uppercase hover:text-cyan"
@@ -26,6 +28,7 @@ const Footer = () => (
           Twitter
         </a>
         <a
+          id="Ziku Github"
           href="https://github.com/wisgloo/ziku"
           target="_blank"
           className="mt-2 block uppercase hover:text-cyan"

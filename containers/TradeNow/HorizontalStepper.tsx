@@ -7,6 +7,7 @@ const HorizontalStepper = () => {
   return (
     <div className="lg:hidden mb-6 flex items-center justify-center space-x-3">
       <button
+        id={`Go_Back_To_${step-1}`}
         disabled={step <= 1}
         className={`p-3.5 rounded-full bg-overlayLight group focus:outline-none ${step <= 1 && 'opacity-25 cursor-default'}`}
         onClick={() => dispatch({ type: TradeActions.GO_BACK })}
@@ -14,6 +15,7 @@ const HorizontalStepper = () => {
         <UpArrowIcon className={`w-5 h-5 ${step > 1 && 'opacity-70 group-hover:opacity-100'}`} />
       </button>
       <button
+        id={`Go_Forward_To_${step+1}`}
         disabled={step >= Object.keys(Steps).length / 2 || step >= mostForwardStep}
         className={`p-3.5 rounded-full bg-overlayLight group focus:outline-none ${(step >= Object.keys(Steps).length / 2 || step >= mostForwardStep) && 'opacity-25 cursor-default'}`}
         onClick={() => dispatch({ type: TradeActions.GO_FORWARD })}

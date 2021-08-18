@@ -9,6 +9,7 @@ const Hero: React.FC<{ scrollToTrade: () => any }> = ({ scrollToTrade }) => (
       assets within a specific timeframe by buying options.
     </h2>
     <button
+      id="Start Earning"
       onClick={scrollToTrade}
       className="border-2 border-gray-700 px-10 py-4 rounded-xl text-base lg:text-lg uppercase font-medium block mx-auto mt-20 lg:mt-24 gradient-button hover:text-gray-900 focus:outline-none tracking-wider"
     >
@@ -18,6 +19,7 @@ const Hero: React.FC<{ scrollToTrade: () => any }> = ({ scrollToTrade }) => (
       Powered by
       {' '}
       <a
+        id="Powered by Opyn"
         href="https://www.opyn.co/"
         target="_blank"
         className="hover:text-cyan text-base font-medium"

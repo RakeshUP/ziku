@@ -7,30 +7,6 @@ const OptionsIntro = () => (
           Options are financial derivatives that give buyers the right,
           but not the obligation, to buy or sell an underlying asset at an agreed upon price and date.
         </p>
-        <p className="text-lg">
-          Ziku is a place for beginners to enter into the world of options. For trading more
-          {' '}
-          <a
-            href="https://www.investopedia.com/trading/options-strategies/"
-            target="_blank"
-            className="underline"
-            rel="noreferrer"
-          >
-            advanced strategies,
-          </a>
-          {' '}
-          we recommend you use
-          {' '}
-          <a
-            href="https://v2.opyn.co/"
-            target="_blank"
-            className="underline"
-            rel="noreferrer"
-          >
-            Opyn
-          </a>
-          .
-        </p>
       </div>
     </div>
     <div className="lg:w-1/2 lg:flex lg:ml-14">

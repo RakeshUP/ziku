@@ -8,6 +8,7 @@ const StepTwo = () => {
   return (
     <>
       <div
+        id="Step_Two_Go_Up"
         className="w-11/12 mx-auto lg:w-1/2 lg:mr-2 p-6 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
         onClick={() => dispatch({ type: TradeActions.OPTION_TYPE_SELECTED, payload: OptionType.CALLS })}
       >
@@ -33,6 +34,7 @@ const StepTwo = () => {
         </div>
       </div>
       <div
+        id="Step_Two_Go_Down"
         className="w-11/12 mx-auto mt-4 lg:mt-0 lg:w-1/2 lg:ml-2 p-6 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
         onClick={() => dispatch({ type: TradeActions.OPTION_TYPE_SELECTED, payload: OptionType.PUTS })}
       >

@@ -113,11 +113,13 @@ const StepTwo = () => {
           </button> :
           allowance.lt(sumAmount) ?
           <button 
+            id="Step_Four_Approve"
             onClick={() => approveUsdc()}
             className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
             {approving ? 'Approving...' : 'Approve'} 
           </button> :
           <button 
+            id="Step_Four_Buy"
             onClick={() => buy()}
             className="text-lg px-4 py-1.5 rounded-lg font-medium gradient-element transform transition-all duration-100 focus:outline-none hover:scale-95 block mx-auto mt-10">
             Buy

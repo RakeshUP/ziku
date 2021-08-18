@@ -98,6 +98,21 @@ const TradeNow: React.FC<TradeNowProps> = ({ tradeRef, parsedOptions }) => {
           )}
         </AnimatePresence>
       </div>
+      <p className="text-center mt-8 opacity-70">
+        Check out 
+        {' '}
+        <a
+          id="Opyn V2 Dashboard"
+          href="https://v2.opyn.co/"
+          target="_blank"
+          className="underline"
+          rel="noreferrer"
+        >
+          Opyn
+        </a>
+        {' '}
+        for a conventional way to trade options
+      </p>
     </section>
   );
 };

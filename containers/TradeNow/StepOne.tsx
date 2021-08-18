@@ -12,6 +12,7 @@ const StepOne = () => {
   return (
     <>
       <div
+        id="Step_One_Ethereum"
         className="w-11/12 mx-auto lg:w-1/2 lg:mr-2 p-4 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
         onClick={() => dispatch({ type: TradeActions.ASSET_SELECTED, payload: COINS.ETHEREUM })}
       >
@@ -33,6 +34,7 @@ const StepOne = () => {
         </div>
       </div>
       <div
+        id="Step_One_Bitcoin"
         className="w-11/12 mx-auto mt-4 lg:mt-0 lg:w-1/2 lg:ml-2 p-4 border-2 border-gray-700 hover:border-cyan cursor-pointer rounded-xl flex flex-col justify-between space-y-6"
         onClick={() => dispatch({ type: TradeActions.ASSET_SELECTED, payload: COINS.BITCOIN })}
       >

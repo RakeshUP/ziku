@@ -88,6 +88,7 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
 
             return (
               <button
+                id={`Step_Three_Strike_${strikePrice}`}
                 key={strikePrice}
                 onClick={() => setSelectedOToken(item)}
                 className={`rounded-xl px-4 py-2 text-sm gradient-element transform hover:scale-95 transition-all duration-100 focus:outline-none`}
@@ -149,6 +150,7 @@ const StepThree: React.FC<StepThreeProps> = ({ options }) => {
           <p className="mt-1">{bestPrice === Infinity? 'N/A' : toTokenAmount(selectedOToken?.strikePrice, 8).toNumber() + (bestPrice * (optionType === OptionType.PUTS ? -1 : 1))}</p>
         </div>
         <button
+          id={`Step_Three_Buy_Now_${toTokenAmount(selectedOToken?.strikePrice, 8).toNumber()}`}
           disabled={selectedOToken === null || bestPrice === Infinity}
           onClick={() => dispatch({ type: TradeActions.OPTION_SELECTED, payload: selectedOToken })}
           className={`rounded-xl px-4 py-2 text-sm gradient-element transform transition-all duration-100 focus:outline-none
