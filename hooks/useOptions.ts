@@ -14,7 +14,7 @@ const useOptions = () => {
 
   useEffect(() => {
     if (loading) return;
-    const oTokens = data?.otokens.filter((o) => new Date(o.expiryTimestamp * 1000).getUTCDay() === 5)
+    const oTokens = data?.otokens.filter((o) => new Date(o.expiryTimestamp * 1000).getUTCDay() === 5 && ['WETH','WBTC'].includes(o.collateralAsset.symbol))
 
     for (const option of oTokens) {
       if (option.underlyingAsset.symbol === option.collateralAsset.symbol) {
